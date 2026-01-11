@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="sunset">
+
+<div class="card dashboard">
+    <h2>Smart Job Recommendation System</h2>
+
+    <form method="POST">
+        <label>Skills (comma separated)</label>
+        <input name="skills">
+
+        <label>Experience (years)</label>
+        <input name="experience">
+
+        <label>Location</label>
+        <input name="location">
+
+        <button>Find Jobs</button>
+    </form>
+
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        <label>Upload Resume (optional)</label>
+        <input type="file" name="resume">
+        <button>Upload Resume</button>
+    </form>
+
+    {% if results %}
+    <table>
+        <tr>
+            <th>Job</th>
+            <th>Company</th>
+            <th>Location</th>
+            <th>Apply</th>
+        </tr>
+        {% for r in results %}
+        <tr>
+            <td>{{ r[0] }}</td>
+            <td>{{ r[1] }}</td>
+            <td>{{ r[2] }}</td>
+            <td><a href="{{ r[3] }}" target="_blank">Apply</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    <div class="popup success">Jobs loaded successfully</div>
+    {% endif %}
+</div>
+
+</body>
+</html>

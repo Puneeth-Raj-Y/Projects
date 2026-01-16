@@ -1,0 +1,101 @@
+# 📊 Employee Attrition Analysis – Power BI Project
+
+## 🔍 Project Overview  
+This project analyzes employee attrition to identify key factors driving employees to leave the organization. The goal was to transform raw HR data into actionable business insights using **SQL, Python, and Power BI**.
+
+The final deliverable is an interactive Power BI dashboard that helps HR and management understand **who is leaving, why they are leaving, and what patterns are emerging.**
+
+---
+
+## 🎯 Objectives  
+- Measure overall attrition rate  
+- Identify departments with high attrition  
+- Analyze the impact of:
+  - Overtime  
+  - Salary (Income Band)  
+  - Work–life balance  
+  - Years at company  
+- Create an actionable view for HR to track high-risk employees  
+
+---
+
+## 🛠️ Tools Used  
+- **MySQL** – Data storage and querying  
+- **Power BI** – Data visualization and dashboarding  
+- **DAX** – Calculated columns and measures  
+- **CSV** – Backup data source for Power BI import  
+
+---
+
+## 📁 Dataset  
+The dataset contains employee attributes such as:
+
+- EmpID  
+- Department  
+- MonthlyIncome  
+- YearsAtCompany  
+- WorkLifeBalance  
+- OverTime  
+- JobSatisfaction  
+- TrainingHours  
+- Attrition (Yes/No)
+
+A cleaned version of the dataset is used in Power BI.
+
+---
+
+## 📈 Dashboard Structure  
+
+### **Page 1 – Executive Overview**
+Includes:
+- KPI Cards:
+  - Total Employees  
+  - Employees Left  
+  - Attrition Rate %  
+- Combo chart:
+  - Attrition Rate by Department  
+  - Employee count overlay  
+- Donut chart: Employees who left by Gender  
+- Bar chart: Impact of Overtime on Attrition  
+
+---
+
+### **Page 2 – Root Cause Analysis**
+Includes:
+- Bar chart: Attrition by Income Band  
+- Bar chart: Attrition by Work–Life Balance  
+- Scatter plot: Attrition vs Years at Company  
+
+This page helps answer:
+> “Why are employees leaving?”
+
+---
+
+### **Page 3 – Actionable HR View**
+Includes:
+- Table showing employees who left  
+- Slicers for:
+  - Department  
+  - Overtime  
+
+This page enables HR to filter and analyze high-risk cases.
+
+---
+
+## 📌 Key Insights  
+1. **Overtime significantly increases attrition.**  
+2. **Lower-income employees are more likely to leave.**  
+3. **Most attrition occurs within the first 1–3 years of employment.**  
+4. Departments like **HR and Sales** show 100% attrition due to very small sample sizes.  
+
+---
+
+## 💡 Business Recommendations  
+- Reduce overtime in high-risk departments  
+- Improve compensation for low-income roles  
+- Strengthen onboarding and early-career support  
+- Improve work–life balance policies  
+
+---
+
+## 🚀 Files in this Repository  

@@ -1,88 +1,109 @@
-# 🔍 Mini Job Search – Smart Job Recommendation System
+# Employee Result and Performance Analyzer
 
-A **Flask-based job search web application** that fetches **real-time job listings** using the **JSearch API (RapidAPI)** and ranks them based on **job role, skills, experience, and location**.
-
-Built to demonstrate **backend logic, API integration, database usage, and UI design** in one complete project.
-
----
-
-## 🚀 Key Features
-
-* User Login & Registration
-* Job search by:
-
-  * Job Role
-  * Skills
-  * Experience
-  * Location
-* Real-time jobs via **JSearch API**
-* Skill-based job relevance scoring
-* Direct apply links
-* PostgreSQL (NeonDB)
-* Modern UI with Sunrise & Sunset gradient themes
+A **JavaFX + HTML (WebView)** based desktop application to manage, analyze, and evaluate employee performance using KPI scores.
+The project demonstrates **Java–JavaScript communication**, validation, and a modern UI inside a Java desktop app.
 
 ---
 
-## 🛠 Tech Stack
+## Features
 
-* **Backend:** Python, Flask
-* **Frontend:** HTML, CSS
-* **Database:** PostgreSQL (NeonDB)
-* **API:** JSearch (RapidAPI)
+* Add, update, delete employee records
+* KPI-based performance calculation (Communication, Work Quality, Technical)
+* Automatic average and grade calculation
+* Validation rules:
+
+  * Employee ID must contain letters + numbers (e.g., `EMP101`)
+  * KPI values must be numeric and ≤ 100
+  * Duplicate employee IDs are not allowed
+* Search employee by ID
+* Sort employees by grade (A → B → C → F)
+* Refresh and view all records
+* Dialog-based success and error messages
+* Auto-clear forms after successful operations
+* Clean, centered, tab-based UI
 
 ---
 
-## 📂 Project Structure
+## Tech Stack
+
+* **Java 17+**
+* **JavaFX**
+* **JavaFX WebView**
+* **HTML, CSS, JavaScript**
+* **Java ↔ JavaScript Bridge (JSObject)**
+
+---
+
+## Project Structure
 
 ```
-mini-job-search/
-├── app.py
-├── templates/
-│   ├── home.html
-│   ├── login.html
-│   ├── register.html
-│   └── index.html
-├── static/
-│   └── style.css
+EmployeeResultAnalyzer/
+│
+├── src/
+│   └── EmployeeRA/
+│       ├── EmployeeWebApp.java
+│       └── module-info.java
+│
+├── resources/
+│   └── EmployeeRA/
+│       └── ui.html
+│
 └── README.md
 ```
 
 ---
 
-## ⚙️ How It Works
+## How It Works
 
-1. User enters job role, skills, and location
-2. Backend queries **JSearch API**
-3. Jobs are scored based on skill matches
-4. Results are sorted and displayed with apply links
-
----
-
-## ▶️ Run Locally
-
-```bash
-pip install flask psycopg2 requests
-python app.py
-```
-
-Open:
-
-```
-http://127.0.0.1:5000
-```
+* The UI is built using **HTML/CSS/JavaScript**
+* JavaFX **WebView** loads the HTML file
+* Java methods are exposed to JavaScript using `JSObject`
+* All business logic (validation, calculations, storage) is handled in Java
+* UI updates are pushed back to HTML dynamically
 
 ---
 
-## 🎯 Why This Project
+## How to Run
 
-* Uses **real job data**
-* Demonstrates **full-stack development**
-* Suitable for **GitHub portfolio & recruiter review**
+1. Install **Java 17+**
+2. Install **JavaFX SDK**
+3. Open the project in **Eclipse**
+4. Configure JavaFX VM options:
+
+   ```
+   --module-path /path/to/javafx/lib --add-modules javafx.controls,javafx.web
+   ```
+5. Run `EmployeeWebApp.java`
 
 ---
 
-## 👨‍💻 Author
+## Sample ID & Input Rules
+
+* Valid ID examples: `EMP101`, `A12`, `HR5`
+* KPI range: `0 – 100`
+* Marks must be numeric only
+
+---
+
+## Learning Outcomes
+
+* JavaFX WebView integration
+* Java ↔ JavaScript communication
+* Input validation and error handling
+* UI/UX design for desktop applications
+* Modular Java project structure
+
+---
+
+## Future Enhancements
+
+* Database integration (MySQL / PostgreSQL)
+* Export reports to Excel or PDF
+* Charts for performance visualization
+* Role-based login system
+
+---
+
+## Author
 
 **Puneeth Raj Y**
-
-Just tell me.

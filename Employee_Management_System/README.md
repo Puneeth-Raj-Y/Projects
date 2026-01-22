@@ -112,7 +112,6 @@ CREATE TABLE employees (
 5. Run `EmployeeApp.java`
 
 ---
-
 📌 Sample Console Menu
 
 ```

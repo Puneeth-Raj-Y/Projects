@@ -1,0 +1,10 @@
+streamlit
+numpy
+pandas
+scikit-learn
+xgboost
+opencv-python-headless
+matplotlib
+scikit-image
+networkx
+tensorflow

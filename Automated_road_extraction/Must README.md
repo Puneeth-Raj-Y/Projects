@@ -6,12 +6,20 @@ Automated Road Extraction using SVM and XGBoost
 -> The dataset used in this project is publicly available on Kaggle and is not included in this repository due to size and upload limitations.
 
 🧠 Models Used
+  
   -> Support Vector Machine (SVM)
+  
   -> XGBoost (Extreme Gradient Boosting)
+
+  -> U-Net
+
 Both models are trained and evaluated to compare:
   -> Classification accuracy
+  
   -> Precision, recall, and F1-score
+  
   -> Generalization performance on unseen data
+
 📊 Dataset
 
 The dataset consists of satellite images and corresponding road masks/labels used for supervised learning.

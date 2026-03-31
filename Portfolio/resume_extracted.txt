@@ -1,0 +1,42 @@
+PUNEETH RAJ Y
+9535230531⋄Bangalore
+puneeth.ys21@gmail.com⋄linkedin.com/in/puneeth-raj-y⋄github.com/Puneeth-Raj-Y
+PROFILE
+MCA student with strong foundation in Data Structures, Algorithms, OOP, and core computer science concepts;
+experienced in building backend applications using Java/Python and SQL. Passionate about developing scalable
+software solutions, solving complex problems, and writing clean, efficient code in fast-paced environments.
+SKILLS
+T echnical SkillsJava, Python, C++, DBMS, REST APIs, MySQL
+Soft SkillsProblem Solving, Ownership, Collaboration
+WORK EXPERIENCE
+Data Science InternAug 2023 - Aug 2023
+Macrolytics Bangalore, IND
+•Designed and implemented data-driven backend modules using Python and SQL for high-volume data processing.
+•Optimized database queries and improved system efficiency by 60
+•Automated workflows and improved system reliability through structured error handling and logging.
+•Worked in an agile team to deliver scalable and maintainable software solutions.
+•Tech Stack: Python, SQL, Git
+PROJECTS
+Grocery Expense T racker Application
+•Designed and developed a backend-driven application with database integration to manage and track user
+expenses efficiently.
+•Implemented CRUD operations, optimized SQL queries, and structured relational database schema for perfor-
+mance and scalability.
+•Applied modular coding practices and input validation to ensure data integrity and system reliability. Integrated
+authentication and session handling for secure user access.
+T ech Stack:Python, SQL (MySQL), Git
+Automated Road Extraction using U-Net
+•Developed a deep learning model using U-Net architecture for automated road detection from satellite images.
+•Implemented data pre-processing, model training, and evaluation pipeline using Python and TensorFlow/PyTorch.
+•Optimized model performance through hyperparameter tuning and validation techniques.
+T ech Stack:Python,TensorFlow/PyTorch, NumPy, OpenCV
+EDUCA TION
+Master of Computer Science, RNS Institute of Technology Expected 2027
+Bachelor of Science(Honours), JSS Academy of Technical Education Bangalore 2021 - 2024
+EXTRA-CURRICULAR ACTIVITIES
+•SecuredRunner-Upposition in Technical Thesis Presentation atIgnitron 2K25, conducted by GM University.
+•Volunteered in organizing anAI Hackathonat college, contributing to technical coordination and event exe-
+cution and Participated in AI Hackathon, collaborating in a team to develop problem-solving solutions under
+time constraints.
+LANGUAGES KNOWN
+Engilsh, Kannada, T amil, T elugu

@@ -5,8 +5,7 @@
 ## ✨ Key Features
 
 - **📱 Progressive Web App (PWA)**: Install the platform on your mobile device for a native-like experience with offline access.
-- **📷 QR Job Scanner**: Scan physical job advertisements using your camera for instant AI matching and role analysis.
-- **🆔 Profile QR**: Generate a personal professional QR code for seamless sharing with recruiters and HR professionals.
+
 - **🤖 AI-Powered Match Scoring**: Uses OpenAI's GPT models to analyze job descriptions and calculate a precise "Match Percentage" based on your unique skill set.
 
 ## 🛠️ Technology Stack

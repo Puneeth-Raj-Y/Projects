@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | CareerPulse AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/static/sw.js');
+        }
+    </script>
+</head>
+
+<body>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar glass">
+            <h2 style="color: var(--primary); margin-bottom: 32px;">CareerPulse AI</h2>
+
+            <form method="POST">
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; color: var(--text-muted);">Desired role</label>
+                    <input name="role" class="input-field" placeholder="e.g. Frontend Developer" required>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; color: var(--text-muted);">Preferred
+                        skills</label>
+                    <input name="skills" class="input-field" placeholder="React, Tailwind, Node" required>
+                </div>
+
+                <div style="margin-bottom: 32px;">
+                    <label style="display: block; margin-bottom: 8px; color: var(--text-muted);">Location</label>
+                    <input name="location" class="input-field" placeholder="Remote, London, etc." required>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 12px;">Find
+                    Opportunities</button>
+
+            </form>
+
+
+
+            <div style="margin-top: 40px; border-top: 1px solid var(--glass-border); padding-top: 20px;">
+
+
+                <p style="font-size: 0.875rem; color: var(--text-muted);">Welcome back!</p>
+                <a href="/logout"
+                    style="color: var(--secondary); text-decoration: none; font-size: 0.875rem;">Logout</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
+                <h1>Recommended Jobs</h1>
+                <div class="glass" style="padding: 8px 16px; font-size: 0.875rem;">
+                    {{ results|length }} results found
+                </div>
+            </div>
+
+            {% if not results %}
+            <div class="glass" style="padding: 60px; text-align: center; color: var(--text-muted);">
+                <h3 style="color: white; margin-bottom: 12px;">Start your search</h3>
+                <p>Fill in your preferences on the left to see AI-matched opportunities.</p>
+            </div>
+            {% endif %}
+
+            <div class="job-grid">
+                {% for job in results %}
+                <div class="job-card glass">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+                        <div>
+                            <h3 style="color: white; margin-bottom: 4px;">{{ job.title }}</h3>
+                            <p style="color: var(--primary);">{{ job.employer }}</p>
+                        </div>
+                        <div class="match-badge">
+                            {{ job.score }}% Match
+                        </div>
+                    </div>
+
+                    <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 20px; line-height: 1.6;">
+                        {{ job.description }}
+                    </p>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span
+                            style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 4px;">
+                            📍 {{ job.location }}
+                        </span>
+                        <a href="{{ job.apply_link }}" target="_blank" class="btn btn-primary"
+                            style="padding: 8px 16px; font-size: 0.875rem;">Apply Now</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </main>
+    </div>
+
+
+</body>
+
+</html>

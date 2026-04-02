@@ -1,5 +1,5 @@
 import os
-import socket
+
 from flask import Flask, render_template, request, redirect, session, url_for
 import sqlite3
 import requests
@@ -10,15 +10,7 @@ load_dotenv()
 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-def get_local_ip():
-    try:
-        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        s.connect(("8.8.8.8", 80))
-        ip = s.getsockname()[0]
-        s.close()
-        return ip
-    except:
-        return "localhost"
+
 
 app = Flask(__name__, static_folder='static', static_url_path='/static')
 app.secret_key = os.getenv("SECRET_KEY", "careerpulse_secret_key_123")
@@ -143,9 +135,7 @@ def dashboard():
         return redirect(url_for("login"))
 
     results = []
-    # Get host IP for Mobile QR access
-    local_ip = get_local_ip()
-    base_url = f"http://{local_ip}:5000"
+
 
     if request.method == "POST":
         role = request.form.get("role", "").lower()
@@ -239,7 +229,7 @@ def dashboard():
         except Exception as e:
             print(f"Error fetching default jobs: {e}")
 
-    return render_template("index.html", results=results, base_url=base_url)
+    return render_template("index.html", results=results)
 
 # ---------------- LOGOUT ----------------
 @app.route("/logout")

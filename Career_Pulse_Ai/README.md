@@ -1,58 +1,215 @@
-# 🚀 CareerPulse AI: Intelligent Job Discovery Platform
+# 🚀 CareerPulse AI — Career Intelligence Engine
 
-**CareerPulse AI** is a professional, AI-powered job search portal designed to bridge the gap between candidate skills and market opportunities. It leverages advanced NLP to provide real-time job matching scores and personalized skill-gap analysis.
+CareerPulse AI is a **Flask-based career intelligence system** that matches user skills with real-time job market data and provides **ranked job recommendations with skill gap analysis**.
 
-## ✨ Key Features
+This project moves beyond basic job portals by implementing a **decision engine** that analyzes, scores, and explains career opportunities.
 
-- **📱 Progressive Web App (PWA)**: Install the platform on your mobile device for a native-like experience with offline access.
+---
 
-- **🤖 AI-Powered Match Scoring**: Uses OpenAI's GPT models to analyze job descriptions and calculate a precise "Match Percentage" based on your unique skill set.
+## 🧠 Core Idea
 
-## 🛠️ Technology Stack
+Instead of just showing jobs, this system answers:
 
-- **Backend**: Python 3.x, Flask
-- **Database**: PostgreSQL (Prisma/Neon DB)
-- **AI/ML**: OpenAI GPT API
-- **Frontend**: HTML5, Vanilla CSS3 (Custom Design System), Jinja2 Templates
-- **API Integration**: RapidAPI (JSearch)
-- **Environment Management**: `python-dotenv`
+> **“Why is this job relevant to you?”**
+
+It does this using:
+
+* Skill matching
+* Scoring algorithms
+* Gap analysis
+* Real-time job data
+
+---
+
+## ✨ Features
+
+### 🔍 Smart Job Matching
+
+* Fetches real-time jobs using RapidAPI (JSearch)
+* Matches user skills with job requirements
+* Ranks jobs based on relevance score
+
+### 📊 Skill Gap Analysis
+
+* Identifies missing skills for each role
+* Helps users understand what to learn next
+
+### ⚡ Multi-Source Job Fetching (Extensible)
+
+* Supports integration of multiple job APIs
+* Fallback system ensures results availability
+
+### 🔐 Authentication System
+
+* User login & registration
+* Session-based authentication
+
+### 📱 Modern UI
+
+* Clean dashboard interface
+* Responsive design
+* Progressive Web App (PWA) support
+
+---
+
+## 🏗️ Project Architecture
+
+```
+CareerPulse_AI/
+│
+├── app.py                 # Flask routes and main application
+├── users.db               # SQLite database
+├── /engine                # Core logic layer (modular system)
+│   ├── skill_extractor.py
+│   ├── job_processor.py
+│   ├── matcher.py
+│   ├── gap_analysis.py
+│   └── recommender.py
+│
+├── /templates            # HTML templates (Jinja2)
+├── /static               # CSS, JS, PWA files
+├── requirements.txt
+└── README.md
+```
+
+---
+
+## ⚙️ Tech Stack
+
+### Backend
+
+* Python (Flask)
+* SQLite (can be upgraded to PostgreSQL/MySQL)
+
+### APIs
+
+* RapidAPI JSearch and RapidAPI Linkedin Job Search (Job Data)
+
+### Frontend
+
+* HTML5, CSS3
+* Jinja2 templating
+* JavaScript (PWA support)
+
+---
+
+## 🔄 How It Works
+
+1. User inputs:
+
+   * Role
+   * Skills
+   * Location
+
+2. System:
+
+   * Calls job API
+   * Extracts job data
+   * Matches skills using scoring logic
+
+3. Output:
+
+   * Ranked job list
+   * Match percentage
+   * Missing skills per job
+
+---
 
 ## 🚀 Getting Started
 
-1. **Clone the repository**:
-   ```bash
-   git clone [repository-url]
-   cd mini-job-search
-   ```
+### 1. Clone Repository
 
-2. **Install Dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. **Configure Environment Variables**:
-   Create a `.env` file in the root directory with the following:
-   ```env
-   SECRET_KEY=your_secret_key
-   DB_HOST=your_db_host
-   DB_NAME=your_db_name
-   DB_USER=your_db_user
-   DB_PASS=your_db_password
-   DB_PORT=5432
-   RAPID_API_KEY=your_rapidapi_key
-   OPENAI_API_KEY=your_openai_api_key
-   ```
-
-4. **Run the Application**:
-   ```bash
-   python app.py
-   ```
-
-## 📈 Future Roadmap
-
-- [ ] Save Jobs to a personal "Watchlist".
-- [ ] Resume Builder with AI-driven content suggestions.
-- [ ] Direct application portal integration.
+```bash
+git clone <your-repo-url>
+cd CareerPulse_AI
+```
 
 ---
-*Developed by Puneeth Raj | MCA Project*
+
+### 2. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+### 3. Setup Environment Variables
+
+Create a `.env` file:
+
+```env
+SECRET_KEY=your_secret_key
+RAPID_API_KEY=your_rapidapi_key
+```
+
+---
+
+### 4. Run Application
+
+```bash
+python app.py
+```
+
+Open:
+
+```
+http://127.0.0.1:5000
+```
+
+---
+
+## 🧪 Example Input
+
+```
+Role: Backend Developer
+Skills: Python, SQL
+Location: India
+```
+
+### Output:
+
+* Ranked job listings
+* Match score (e.g., 72%)
+* Missing skills (e.g., Docker, System Design)
+
+---
+
+## 📈 Future Improvements
+
+* Resume upload & parsing (PDF support)
+* Skill demand analytics (market trends)
+* Machine learning-based recommendation engine
+* Deployment (Docker + Cloud)
+
+---
+
+## ⚠️ Known Limitations
+
+* Depends on external API availability
+* Skill matching is rule-based (can be improved with ML)
+* API rate limits may affect results
+
+---
+
+## 🧠 Why This Project Stands Out
+
+Unlike typical CRUD job portals, this project demonstrates:
+
+* System design thinking
+* API integration
+* Data processing & scoring logic
+* Real-world problem solving
+
+---
+
+## 👨‍💻 Author
+
+**Puneeth Raj**
+MCA Student | Aspiring Software Engineer
+
+---
+
+## 📄 License
+
+This project is for educational and portfolio purposes.

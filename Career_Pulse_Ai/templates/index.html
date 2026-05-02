@@ -4,10 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="CareerPulse AI Dashboard — Discover AI-ranked job opportunities matched to your skills.">
     <title>Dashboard | CareerPulse AI</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
-
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/static/sw.js');
@@ -18,91 +19,174 @@
 <body>
 
     <div class="dashboard-layout">
-        <!-- Sidebar -->
+
+        <!-- ── Sidebar ─────────────────────────────────── -->
         <aside class="sidebar glass">
-            <h2 style="color: var(--primary); margin-bottom: 32px;">CareerPulse AI</h2>
+            <div class="sidebar-brand">
+                <span class="brand-icon">⚡</span>
+                <h2>CareerPulse AI</h2>
+            </div>
 
-            <form method="POST">
-                <div style="margin-bottom: 20px;">
-                    <label style="display: block; margin-bottom: 8px; color: var(--text-muted);">Desired role</label>
-                    <input name="role" class="input-field" placeholder="e.g. Frontend Developer" required>
+            <form method="POST" id="search-form">
+                <div class="form-group">
+                    <label for="role-input">Desired Role</label>
+                    <input id="role-input" name="role" class="input-field" placeholder="e.g. Data Scientist"
+                        value="{{ role }}" required>
                 </div>
 
-                <div style="margin-bottom: 20px;">
-                    <label style="display: block; margin-bottom: 8px; color: var(--text-muted);">Preferred
-                        skills</label>
-                    <input name="skills" class="input-field" placeholder="React, Tailwind, Node" required>
+                <div class="form-group">
+                    <label for="skills-input">Your Skills <span class="label-hint">(comma-separated)</span></label>
+                    <input id="skills-input" name="skills" class="input-field" placeholder="Python, SQL, TensorFlow"
+                        value="{{ skills_raw }}" required>
                 </div>
 
-                <div style="margin-bottom: 32px;">
-                    <label style="display: block; margin-bottom: 8px; color: var(--text-muted);">Location</label>
-                    <input name="location" class="input-field" placeholder="Remote, London, etc." required>
+                <div class="form-group">
+                    <label for="location-input">Location</label>
+                    <input id="location-input" name="location" class="input-field" placeholder="Remote, Mumbai, etc.">
                 </div>
 
-                <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 12px;">Find
-                    Opportunities</button>
-
+                <button type="submit" class="btn btn-primary btn-full" id="search-btn">
+                    <span class="btn-icon">🔍</span>
+                    Find Opportunities
+                </button>
             </form>
 
-
-
-            <div style="margin-top: 40px; border-top: 1px solid var(--glass-border); padding-top: 20px;">
-
-
-                <p style="font-size: 0.875rem; color: var(--text-muted);">Welcome back!</p>
-                <a href="/logout"
-                    style="color: var(--secondary); text-decoration: none; font-size: 0.875rem;">Logout</a>
+            <div class="sidebar-footer">
+                <div class="user-pill">
+                    <span class="user-avatar">{{ username[0] | upper }}</span>
+                    <span class="user-name">{{ username }}</span>
+                </div>
+                <a href="/logout" class="logout-link">Logout →</a>
             </div>
         </aside>
 
-        <!-- Main Content -->
+        <!-- ── Main Content ─────────────────────────────── -->
         <main>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
-                <h1>Recommended Jobs</h1>
-                <div class="glass" style="padding: 8px 16px; font-size: 0.875rem;">
-                    {{ results|length }} results found
+            <!-- Header bar -->
+            <div class="content-header">
+                <div>
+                    <h1>Recommended Jobs</h1>
+                    <p class="content-subtitle">Ranked by your personal skill match score</p>
+                </div>
+                <div class="results-badge glass">
+                    <span class="badge-count">{{ results | length }}</span>
+                    <span class="badge-label">results</span>
                 </div>
             </div>
 
+            <!-- Empty state -->
             {% if not results %}
-            <div class="glass" style="padding: 60px; text-align: center; color: var(--text-muted);">
-                <h3 style="color: white; margin-bottom: 12px;">Start your search</h3>
-                <p>Fill in your preferences on the left to see AI-matched opportunities.</p>
+            <div class="empty-state glass">
+                {% if api_error %}
+                <div class="error-msg" style="color: #ff4d4d; margin-bottom: 20px; font-weight: bold; border: 1px solid #ff4d4d; padding: 15px; border-radius: 8px; background: rgba(255, 77, 77, 0.1);">
+                    ⚠️ API Error: {{ api_error }}
+                </div>
+                {% endif %}
+                <div class="empty-icon">🎯</div>
+                <h3>Ready to find your perfect role?</h3>
+                <p>Enter your role and skills on the left — our engine will score and rank every result for you.</p>
             </div>
             {% endif %}
 
+            <!-- Job grid -->
             <div class="job-grid">
                 {% for job in results %}
-                <div class="job-card glass">
-                    <div
-                        style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
-                        <div>
-                            <h3 style="color: white; margin-bottom: 4px;">{{ job.title }}</h3>
-                            <p style="color: var(--primary);">{{ job.employer }}</p>
+                <div class="job-card glass" data-score="{{ job.match_score }}">
+
+                    <!-- Card header -->
+                    <div class="card-header">
+                        <div class="card-title-block">
+                            <h3 class="job-title">{{ job.title }}</h3>
+                            <p class="job-employer">{{ job.employer }}</p>
                         </div>
-                        <div class="match-badge">
-                            {{ job.score }}% Match
-                        </div>
+
+                        <!-- Match badge (colour changes with score) -->
+                        {% if job.match_score >= 70 %}
+                        <div class="match-badge badge-high">{{ job.match_score }}%</div>
+                        {% elif job.match_score >= 40 %}
+                        <div class="match-badge badge-mid">{{ job.match_score }}%</div>
+                        {% elif job.match_score > 0 %}
+                        <div class="match-badge badge-low">{{ job.match_score }}%</div>
+                        {% else %}
+                        <div class="match-badge badge-none">—</div>
+                        {% endif %}
                     </div>
 
-                    <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 20px; line-height: 1.6;">
-                        {{ job.description }}
+                    <!-- Match meter bar -->
+                    {% if job.match_score > 0 %}
+                    {% if job.match_score >= 70 %}{% set fill_cls = "fill-high" %}{% elif job.match_score >= 40 %}{% set
+                    fill_cls = "fill-mid" %}{% else %}{% set fill_cls = "fill-low" %}{% endif %}
+                    <div class="match-meter-wrap">
+                        <div class="match-meter-track">
+                            <div class="match-meter-fill {{ fill_cls }}" data-score="{{ job.match_score }}"></div>
+                        </div>
+                        <span class="match-meter-label">Match</span>
+                    </div>
+                    {% endif %}
+
+                    <!-- Description snippet -->
+                    <p class="job-desc">{{ job.description[:200] }}{% if job.description | length > 200 %}…{% endif %}
                     </p>
 
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span
-                            style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center; gap: 4px;">
-                            📍 {{ job.location }}
-                        </span>
-                        <a href="{{ job.apply_link }}" target="_blank" class="btn btn-primary"
-                            style="padding: 8px 16px; font-size: 0.875rem;">Apply Now</a>
+                    <!-- Job skills chips -->
+                    {% if job.job_skills %}
+                    <div class="skill-chips">
+                        {% for skill in job.job_skills[:6] %}
+                        <span class="chip chip-skill">{{ skill }}</span>
+                        {% endfor %}
+                        {% if job.job_skills | length > 6 %}
+                        <span class="chip chip-more">+{{ job.job_skills | length - 6 }}</span>
+                        {% endif %}
                     </div>
+                    {% endif %}
+
+                    <!-- Skill gap -->
+                    <div class="gap-section">
+                        <span class="gap-label-text">Missing Skills:</span>
+                        <span class="gap-value
+                            {% if not job.missing_skills %}gap-none{% else %}gap-has{% endif %}">
+                            {{ job.gap_label }}
+                        </span>
+                    </div>
+
+                    <!-- Card footer -->
+                    <div class="card-footer">
+                        <span class="location-tag">📍 {{ job.location if job.location.strip() else "Location N/A"
+                            }}</span>
+                        <a href="{{ job.apply_link }}" target="_blank" rel="noopener noreferrer"
+                            class="btn btn-primary btn-sm">
+                            Apply Now ↗
+                        </a>
+                    </div>
+
                 </div>
                 {% endfor %}
             </div>
         </main>
     </div>
 
+    <script src="{{ url_for('static', filename='scanner.js') }}"></script>
+
+    <script>
+        // Animate match bars on load
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll(".match-meter-fill").forEach(el => {
+                const score = el.dataset.score || "0";
+                el.style.width = "0%";
+                setTimeout(() => { el.style.width = score + "%"; }, 200);
+            });
+
+            // Submit button loading state
+            const form = document.getElementById("search-form");
+            const btn = document.getElementById("search-btn");
+            if (form && btn) {
+                form.addEventListener("submit", () => {
+                    btn.textContent = "Searching…";
+                    btn.disabled = true;
+                });
+            }
+        });
+    </script>
 
 </body>
 

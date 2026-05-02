@@ -3,41 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Log in to CareerPulse AI — your personal job matching dashboard.">
     <title>Login | CareerPulse AI</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-
     <div class="auth-container">
         <div class="auth-card glass">
-            <h2 style="margin-bottom: 8px; text-align: center;">Welcome Back</h2>
-            <p style="color: var(--text-muted); text-align: center; margin-bottom: 32px; font-size: 0.875rem;">Enter your credentials to continue</p>
-            
+            <h2>Welcome Back</h2>
+            <p class="auth-subtitle">Enter your credentials to access your dashboard</p>
+
             {% if msg %}
-            <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid #ef4444; border-radius: 8px; padding: 12px; color: #ef4444; font-size: 0.875rem; margin-bottom: 24px; text-align: center;">
-                {{ msg }}
-            </div>
+            <div class="alert alert-error">{{ msg }}</div>
             {% endif %}
 
             <form method="POST">
-                <div style="margin-bottom: 20px;">
-                    <label style="display: block; margin-bottom: 8px; color: var(--text-muted);">Username</label>
-                    <input name="username" class="input-field" placeholder="Enter your username" required>
-                </div>
-                
-                <div style="margin-bottom: 32px;">
-                    <label style="display: block; margin-bottom: 8px; color: var(--text-muted);">Password</label>
-                    <input type="password" name="password" class="input-field" placeholder="••••••••" required>
+                <div class="auth-form-group">
+                    <label for="username">Username</label>
+                    <input id="username" name="username" class="input-field"
+                           placeholder="Enter your username" required autocomplete="username">
                 </div>
 
-                <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 16px;">Login</button>
+                <div class="auth-form-group" style="margin-bottom: 28px;">
+                    <label for="password">Password</label>
+                    <input id="password" type="password" name="password" class="input-field"
+                           placeholder="••••••••" required autocomplete="current-password">
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-full">Login</button>
             </form>
 
-            <p style="text-align: center; font-size: 0.875rem; color: var(--text-muted);">
-                Don't have an account? <a href="/register" style="color: var(--primary); text-decoration: none;">Register</a>
+            <p class="auth-footer">
+                Don't have an account?
+                <a href="/register">Register</a>
             </p>
         </div>
     </div>
-
 </body>
 </html>

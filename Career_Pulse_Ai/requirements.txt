@@ -1,6 +1,6 @@
 flask
-psycopg2-binary
 requests
-openai
 python-dotenv
+bcrypt
 gunicorn
+pytest

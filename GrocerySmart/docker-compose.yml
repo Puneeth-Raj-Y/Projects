@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - NODE_ENV=production
+      - JWT_SECRET=production_key_change_me_in_env_file
+      - JWT_EXPIRES_IN=7d
+      - CLIENT_URL=http://localhost:5173
+    volumes:
+      - ./server/uploads:/app/server/uploads
+      - ./grocerysmart.db:/app/grocerysmart.db
+    restart: always

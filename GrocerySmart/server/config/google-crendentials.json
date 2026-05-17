@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "grocery-smart-496607",
+  "private_key_id": "9f361dc660050ab76e71cd67160b9babc996e5a6",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDWsf955NJSH3NL\nabD+NAzOJPOGK9do12kqOkSzQUdWC1bQVgukP3ahm3LtpRBoaE75ECdz4L36X/e5\nGEHNNEGuatA4u4nvYnG4xTW2tf1EeVAskZAgrKwZH8UEfA5DeSecrRP/jQ7dsmrF\ndM30lKEF5553BjoWwm2mUd7L6QMBe2e/i53mNjFtNz2cqfY4rgUunZSRMLTt8W06\n7SgWH7Kj5fGP2yOgYILpCBMiHguizDOnH2x7uVovv6ZyE9DutxQ2RM3ut4d0nfIg\nHCYEyXzD+pCLmQfr4vNmtO7UzOZ77jNAmZZ1injk9DbmJoj3WuGX/e1x4CXZ69IG\niNS8pK8hAgMBAAECgf9hdz074R16Gr0Ep16qiIanry6+4nhQKDqd6QX3OtNfxJYM\nzoNKdWUtyJxMNntUasYvW54NhSG54IddiB2XQvnubJ9KohjkjBSEhUL1R3lK9Kfp\nE8wSiVE3tqyCdK8lAoNxJUHG6gqtqqm+KmC1gCP5wkS2VCVa37lXoCM8/vNWYBK6\nvAGhMoKCA1wYN6LRmdi4OOe36mHwutv7gwb473w8k20CALwtS39D1CrIosAbluMm\nIQK5WinDFmyqad2IZQlkvZanP17/K5M6yb48vy6AUK8oyNUishHjuUssMJYjLYnS\nEKyqdRl/sSUZvTyWiaMDxcXciwc+0HbyWBJwWEECgYEA7v7DKgHjANeEz6U9VbUc\nvPV86+F46waDFcSxjYtGUcAMrC09S3UGmz0lGVCG/X0KeFBrrUH2xhqko0/UkGJ/\nx5OXnNyAw8kJrABhVcSGBBJ55ZVXwmgK7tHSRawcIGaAmkDbVymeREioCXZWA5CY\nP53zebz/Oyz/J74cEQcDqEECgYEA5fieocKykG8ZN7F0hFl3/9vo+KqbIxaca8hL\nI6EHCndd1cF92fnccnM0juAit23Efv7U/L6SKP9rsJexhRaw/En0wGoQtpqfnHU/\n7tO7WvXuq/tZUCd5H3JNbziPKXM4NPvvi2bkHiD9dQBH0+kU4Mb1PIyaHvmKhlOV\nrjqqTuECgYEAp26RmadSui9CmxofOyEz7elpx/Lg/H5GbYSsAwaUkAckmabj7y4g\nH7eZev+gYowsPpfQp8Ozt5vIxaTSvQhUjqQGrl0IVKFOBlMJ3cVdQhMTlNSoc8ji\nB+e1ERx/Y++LnwVa5NiCSUJBfseJgNvW3ZKxlRLkGDfw1Y3pKcCpPkECgYA8O4Lo\n4UK9m6uiL6NR6tEIPYPmZWDertRnUn2DpnBeqGb2Toh06AF6JHx2k3PkUSavEHWe\ngRdtD4EYLpL7RbczTPeC0gTwns0BQKBvIBupNlK9zsZUvRH3T4vCfrDYbWoiTn4u\nJ9PFpGReGaW2dgzW1qVyp2zSgg9rIUdJ6+mhYQKBgQCbc80GMHJfkaC5/3cAc+eh\nOu2bewUkK/z9pxzinkjmemR4nnMRudVRlIY/IzP7yqUOshwKMK+e3EFwcBRr5JVe\n7zuCn1kY6e/Fdf5nA+4idLQvJhm//nz045DPcrvnsLulXsXVUmGsnO4Grz7LL7Dh\nWoW2IluDeL68JB/gam/rwA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "puneethraj@grocery-smart-496607.iam.gserviceaccount.com",
+  "client_id": "101106373446500638492",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/puneethraj%40grocery-smart-496607.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

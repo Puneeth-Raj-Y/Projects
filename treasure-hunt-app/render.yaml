@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: treasure-hunt-app
+    env: node
+    buildCommand: npm install && npx prisma generate && npm run build
+    startCommand: npx prisma migrate deploy && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      # Provide a default admin username/password
+      - key: ADMIN_USERNAME
+        value: admin
+      - key: ADMIN_PASSWORD
+        value: admin123
+      # We move the DB path to the persistent disk mount
+      - key: DATABASE_URL
+        value: "file:/var/data/sqlite.db"
+    disk:
+      name: sqlite-data
+      mountPath: /var/data
+      sizeGB: 1

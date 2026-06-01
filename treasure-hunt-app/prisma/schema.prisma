@@ -1,0 +1,214 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  email     String   @unique
+  password  String
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("admins")
+}
+
+model Team {
+  id               String       @id @default(cuid())
+  teamId           String       @unique
+  name             String
+  password         String
+  email            String       @unique
+  contactNumber    String
+  status           String       @default("active") // active, completed, disqualified
+  totalPoints      Int          @default(0)
+  registrationDate DateTime     @default(now())
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+
+  members          TeamMember[]
+  teamRoute        TeamRoute?
+  submissions      ActivitySubmission[]
+  pointsHistory    Points[]
+  notifications    Notification[]
+
+  @@map("teams")
+}
+
+model TeamMember {
+  id        String   @id @default(cuid())
+  teamId    String
+  name      String
+  studentId String
+  phone     String
+  email     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  team      Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
+  @@map("team_members")
+}
+
+model Location {
+  id           String   @id @default(cuid())
+  name         String
+  description  String
+  clue         String
+  funActivity  String
+  activityType String   @default("photo") // photo, video, text, puzzle
+  points       Int      @default(10)
+  status       String   @default("active") // active, inactive
+  orderIndex   Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  qrCode       QRCode?
+  routeSteps   RouteStep[]
+  submissions  ActivitySubmission[]
+
+  @@map("locations")
+}
+
+model QRCode {
+  id         String   @id @default(cuid())
+  locationId String   @unique
+  code       String   @unique
+  imageUrl   String?
+  scanCount  Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  location   Location @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  scanLogs   QRScanLog[]
+
+  @@map("qr_codes")
+}
+
+model QRScanLog {
+  id        String   @id @default(cuid())
+  qrCodeId  String
+  teamId    String
+  scannedAt DateTime @default(now())
+
+  qrCode    QRCode   @relation(fields: [qrCodeId], references: [id], onDelete: Cascade)
+
+  @@map("qr_scan_logs")
+}
+
+model Route {
+  id        String      @id @default(cuid())
+  name      String
+  isActive  Boolean     @default(true)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  steps     RouteStep[]
+  teamRoutes TeamRoute[]
+
+  @@map("routes")
+}
+
+model RouteStep {
+  id         String   @id @default(cuid())
+  routeId    String
+  locationId String
+  stepOrder  Int
+  createdAt  DateTime @default(now())
+
+  route      Route    @relation(fields: [routeId], references: [id], onDelete: Cascade)
+  location   Location @relation(fields: [locationId], references: [id])
+
+  @@unique([routeId, stepOrder])
+  @@map("route_steps")
+}
+
+model TeamRoute {
+  id              String   @id @default(cuid())
+  teamId          String   @unique
+  routeId         String
+  currentStep     Int      @default(0)
+  isLocked        Boolean  @default(false)
+  isCompleted     Boolean  @default(false)
+  startedAt       DateTime?
+  completedAt     DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  team            Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  route           Route    @relation(fields: [routeId], references: [id])
+
+  @@map("team_routes")
+}
+
+model ActivitySubmission {
+  id           String   @id @default(cuid())
+  teamId       String
+  locationId   String
+  submissionType String // photo, video, text
+  fileUrl      String?
+  textAnswer   String?
+  status       String   @default("pending") // pending, approved, rejected, resubmit
+  adminComment String?
+  bonusPoints  Int      @default(0)
+  penaltyPoints Int     @default(0)
+  reviewedAt   DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  team         Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  location     Location @relation(fields: [locationId], references: [id])
+
+  @@map("activity_submissions")
+}
+
+model Points {
+  id          String   @id @default(cuid())
+  teamId      String
+  points      Int
+  reason      String
+  type        String   @default("award") // award, penalty, bonus
+  locationId  String?
+  createdAt   DateTime @default(now())
+
+  team        Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
+  @@map("points")
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  teamId    String
+  title     String
+  message   String
+  type      String   @default("info") // info, success, warning, error
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  team      Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
+}
+
+model GameSettings {
+  id                    String  @id @default(cuid())
+  autoApproveActivities Boolean @default(false)
+  qrScanPoints          Int     @default(5)
+  activityPoints        Int     @default(15)
+  cluePoints            Int     @default(10)
+  routeCompletionPoints Int     @default(50)
+  incorrectPenalty      Int     @default(5)
+  skipPenalty           Int     @default(10)
+  updatedAt             DateTime @updatedAt
+
+  @@map("game_settings")
+}

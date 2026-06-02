@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { ClipboardCheck, Check, X, Clock, Image as ImageIcon, Video, FileText } from 'lucide-react'
+import { ClipboardCheck, Check, X, Clock, Image as ImageIcon, Video, FileText, CheckCircle2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -30,16 +30,16 @@ export default function AdminActivitiesPage() {
     fetchSubmissions()
   }, [])
 
-  async function handleReview(id: string, status: 'approved' | 'rejected') {
+  async function handleReview(id: string, action: 'approved' | 'rejected') {
     try {
       const res = await fetch(`/api/admin/activities`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ submissionId: id, status }),
+        body: JSON.stringify({ submissionId: id, action }),
       })
       const json = await res.json()
       if (json.success) {
-        toast({ title: `Submission ${status}`, variant: status === 'approved' ? 'success' : ('destructive' as any) })
+        toast({ title: `Submission ${action}`, variant: action === 'approved' ? 'success' : ('destructive' as any) })
         fetchSubmissions()
       } else {
         toast({ title: 'Error', description: json.error, variant: 'destructive' })
@@ -114,19 +114,24 @@ export default function AdminActivitiesPage() {
                 <div className="flex-1 p-4 flex flex-col items-center justify-center min-h-[160px] bg-black/20">
                   {sub.submissionType === 'text' ? (
                     <div className="w-full h-full flex items-center justify-center p-6 text-center text-lg font-medium italic">
-                      "{sub.content}"
+                      {sub.textAnswer ? `"${sub.textAnswer}"` : <span className="text-muted-foreground text-sm">No text answer provided</span>}
                     </div>
-                  ) : sub.submissionType === 'photo' ? (
+                  ) : sub.submissionType === 'photo' && sub.fileUrl ? (
                     <div className="relative w-full h-48 rounded-lg overflow-hidden border border-border">
-                      <Image src={sub.content} alt="Submission" fill className="object-cover" />
+                      <Image src={sub.fileUrl} alt="Submission" fill className="object-cover" />
                     </div>
-                  ) : (
+                  ) : sub.submissionType === 'video' && sub.fileUrl ? (
                     <div className="w-full text-center p-4">
-                      <a href={sub.content} target="_blank" rel="noreferrer">
+                      <a href={sub.fileUrl} target="_blank" rel="noreferrer">
                         <Button variant="outline" className="w-full">
                           <Video className="w-4 h-4 mr-2" /> View Video
                         </Button>
                       </a>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col items-center justify-center gap-2 text-muted-foreground">
+                      <ImageIcon className="w-8 h-8 opacity-30" />
+                      <p className="text-sm">No file uploaded</p>
                     </div>
                   )}
                 </div>
@@ -136,6 +141,7 @@ export default function AdminActivitiesPage() {
                     variant="outline" 
                     className="flex-1 border-destructive text-destructive hover:bg-destructive hover:text-destructive-foreground"
                     onClick={() => handleReview(sub.id, 'rejected')}
+                    disabled={sub.status !== 'pending'}
                   >
                     <X className="w-4 h-4 mr-1" /> Reject
                   </Button>
@@ -143,6 +149,7 @@ export default function AdminActivitiesPage() {
                     variant="default" 
                     className="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white"
                     onClick={() => handleReview(sub.id, 'approved')}
+                    disabled={sub.status !== 'pending'}
                   >
                     <Check className="w-4 h-4 mr-1" /> Approve
                   </Button>
@@ -156,22 +163,4 @@ export default function AdminActivitiesPage() {
   )
 }
 
-function CheckCircle2(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-      <polyline points="22 4 12 14.01 9 11.01" />
-    </svg>
-  )
-}
+
